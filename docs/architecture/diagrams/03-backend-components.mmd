@@ -1,0 +1,46 @@
+flowchart TB
+  UI["Angular UI"]
+  BOT["Торговый робот"]
+  subgraph APP["Backend: один процесс Kotlin / Spring Boot"]
+    API["HTTP API / OpenAPI<br/>Владелец и входные данные"]
+    RUN["Run Service<br/>Команды и транзакции"]
+    AG["AI-Agent<br/>Подготовка и разбор"]
+    ING["Data Import<br/>Нормализация и версии"]
+    ENG["Simulation Engine<br/>Чистый расчёт шага"]
+    SC["Scenario Service<br/>Сохранённые версии"]
+    REP["Result Service<br/>Метрики, журнал, AIReview"]
+    RAG["RAG / Event Retrieval<br/>Поиск событий и истории"]
+    GW["LLM Gateway<br/>Контекст и tool calls"]
+    REPO["Data Repositories<br/>PostgreSQL / SQL"]
+    API --> RUN
+    API --> AG
+    API --> REP
+    API -->|"Продуктовые события"| REPO
+    RUN -->|"advance"| ENG
+    RUN -->|"Атомарные изменения"| REPO
+    AG -->|"save_scenario"| SC
+    AG -->|"get_run_result<br/>get_run_journal"| REP
+    AG -->|"search_events<br/>load_history"| RAG
+    AG --> GW
+    SC --> REPO
+    REP --> REPO
+    RAG --> REPO
+    ING --> REPO
+  end
+  DB[("PostgreSQL")]
+  LLM["LLM API"]
+  MCP["T-Invest MCP"]
+  SRC["Источники событий"]
+  UI -->|"HTTPS / JSON"| API
+  BOT -->|"Тот же API"| API
+  REPO --> DB
+  GW -->|"HTTPS"| LLM
+  ING -->|"Чтение данных"| MCP
+  ING -->|"Импорт событий"| SRC
+  classDef ai fill:#ede9fe,stroke:#7c3aed,color:#19152b
+  classDef core fill:#dcfce7,stroke:#16a34a,color:#14291a
+  classDef edge fill:#dbeafe,stroke:#2563eb,color:#15253d
+  class AG,GW,RAG ai
+  class RUN,ENG,REP core
+  class API,SC,ING,REPO edge
+  style APP fill:#f8fafc,stroke:#64748b,stroke-dasharray:6 4

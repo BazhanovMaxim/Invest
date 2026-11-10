@@ -1,0 +1,33 @@
+sequenceDiagram
+  autonumber
+  actor U as Пользователь
+  participant API as HTTP API
+  participant A as AI-Agent
+  participant L as LLM API
+  participant R as Result Service
+  participant D as PostgreSQL
+  Note over R,D: Run уже FINISHED. Численные результаты сохранены без участия LLM.
+  U->>API: Открыть разбор runId
+  API->>A: explainCompletedRun(runId)
+  A->>L: Цель + runId + инструменты получения результатов
+  loop Ограниченное число вызовов инструментов
+    L-->>A: tool_call: get_run_result / get_run_journal
+    A->>R: Запрос результата завершённого прогона
+    R->>D: Метрики, исполнения, комиссии и записи журнала
+    D-->>R: Готовые числа и идентификаторы действий
+    R-->>A: Данные для разбора
+    A->>L: tool_result
+  end
+  alt Модель вернула разбор
+    L-->>A: Объяснение со ссылками на действия и одно предлагаемое изменение
+    A->>R: Сохранить AIReview и версию модели/промпта
+    R->>D: Сохранить разбор отдельно от RunResult
+    A-->>API: Разбор и предложение следующей проверки
+  else Модель недоступна или ответ не получен
+    A->>R: Сохранить статус AIReview FAILED
+    R->>D: Ошибка разбора, RunResult не меняется
+    A-->>API: Разбор не готов, численный результат остаётся доступен
+  end
+  API-->>U: Результат и статус разбора
+  U->>API: Новый run с изменённым портфелем или стратегией
+  Note over U,D: Улучшение считаем по выбранной цели.<br/>Сравнение попыток: одинаковые сценарий, стартовые деньги и правила расходов.

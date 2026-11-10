@@ -1,0 +1,42 @@
+sequenceDiagram
+  autonumber
+  actor C as Человек через UI или робот
+  participant API as Общий HTTP API
+  participant R as Run Service
+  participant E as Simulation Engine
+  participant D as PostgreSQL
+  C->>API: Создать run: версия сценария + стартовый портфель + цель
+  API->>R: createRun(owner, controllerMode)
+  R->>D: Сохранить начальный снимок и шаг 0
+  D-->>R: runId, stateVersion=0
+  R-->>API: Observation шага 0, будущие данные скрыты
+  API-->>C: Начальное наблюдение
+  loop До FINISHED или FAILED
+    C->>API: Decision(commandId, expectedStep, expectedVersion, actions[])
+    API->>R: Проверить владельца и структуру решения
+    rect rgb(232, 244, 238)
+      Note over R,D: Одна транзакция, блокировка строки конкретного run
+      R->>D: BEGIN, заблокировать run, найти commandId
+      alt commandId найден и request_hash совпадает
+        D-->>R: Сохранённый ответ этой команды
+        R->>D: Завершить транзакцию без нового шага
+      else commandId найден, но request_hash другой
+        R->>D: Завершить транзакцию без изменений
+        R->>R: 409: другое тело команды
+      else Новая команда
+        R->>R: Проверить статус, expectedStep и expectedVersion
+        R->>D: Прочитать состояние, правила и цены следующего шага
+        D-->>R: Входные данные движка
+        R->>E: advance(state, actions, nextPrices, rules)
+        E-->>R: Заявки, исполнения, деньги, позиции и метрики
+        R->>D: Сохранить изменения, equity шага, commandId и ответ
+        opt Последний шаг сценария
+          R->>D: Сохранить RunMetrics и FINISHED в той же транзакции
+        end
+        R->>D: COMMIT
+      end
+    end
+    R-->>API: Observation, сохранённый ответ или 409
+    API-->>C: Результат решения без будущих цен и событий
+  end
+  Note over C,D: Время двигает только backend. LLM и наш AI-Agent в этом цикле не участвуют.<br/>Новая заявка может исполниться не раньше следующего ценового шага.<br/>Стоп проверяется на очередной заданной цене. Правила исполнения упрощены и версионируются.

@@ -1,0 +1,25 @@
+flowchart TB
+  H["«person»<br/>Пользователь"]
+  B["«external system»<br/>Торговый робот"]
+  subgraph SYS["Песочница стратегий"]
+    W["«container» Web UI<br/>Angular / TypeScript<br/>Портфель, решения и разбор"]
+    A["«container» Backend<br/>Kotlin / Spring Boot<br/>API, агент, RAG и симулятор"]
+    D[("«container: database»<br/>PostgreSQL<br/>Версии, состояние и журнал")]
+    W -->|"HTTPS / JSON<br/>Общий контракт OpenAPI"| A
+    A -->|"SQL / транзакции"| D
+  end
+  L["«external system»<br/>LLM API"]
+  M["«external system»<br/>T-Invest MCP"]
+  E["«external system»<br/>Источники событий"]
+  H -->|"Браузер / HTTPS"| W
+  B -->|"HTTPS / JSON<br/>Тот же контракт OpenAPI"| A
+  A -->|"LLM / HTTPS"| L
+  A -->|"Чтение / MCP"| M
+  A -->|"События / HTTPS"| E
+  classDef person fill:#08427b,stroke:#052e56,color:#fff
+  classDef container fill:#1168bd,stroke:#08427b,color:#fff
+  classDef external fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  class H person
+  class W,A,D container
+  class B,L,M,E external
+  style SYS fill:#f8fafc,stroke:#64748b,stroke-dasharray:6 4

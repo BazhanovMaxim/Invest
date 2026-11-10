@@ -1,0 +1,24 @@
+.DS_Store
+node_modules
+
+# Материалы исследования остаются локально
+/outputs/
+
+# Локальные инструменты отрисовки
+/.tools/
+
+# Локальные настройки и секреты
+.env
+.env.*
+!.env.example
+
+# Временные файлы Excel и LibreOffice
+~$*.xlsx
+.~lock.*#
+
+# Диагностика и снимки до редактирования
+*.inspect.ndjson
+before-*.png
+before-snapshot.json
+formula-error-inspect.json
+workbook-inspect.json

@@ -1,0 +1,12 @@
+{
+  "name": "invest-architecture",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "diagrams": "node tools/render-diagrams.mjs"
+  },
+  "devDependencies": {
+    "mermaid": "11.4.1",
+    "playwright": "1.62.1"
+  }
+}

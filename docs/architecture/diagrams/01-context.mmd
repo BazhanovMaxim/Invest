@@ -1,0 +1,18 @@
+flowchart TB
+  H["«person»<br/>Пользователь<br/>Проверяет стратегию"]
+  B["«external system»<br/>Торговый робот<br/>Клиент общего API"]
+  S["«software system»<br/>Песочница стратегий<br/>Сценарии, симуляция и разбор"]
+  L["«external system»<br/>LLM API<br/>Сценарий и объяснение"]
+  M["«external system»<br/>T-Invest MCP<br/>История и параметры"]
+  E["«external system»<br/>Источники событий<br/>Новости и сообщения компаний"]
+  H -->|"Портфель, решения<br/>и разбор"| S
+  B -->|"Наблюдения<br/>и решения"| S
+  S -->|"До запуска и после финиша<br/>HTTPS"| L
+  S -->|"Читает данные<br/>MCP / HTTPS"| M
+  S -->|"Импорт событий<br/>HTTPS / файлы"| E
+  classDef person fill:#08427b,stroke:#052e56,color:#fff
+  classDef system fill:#1168bd,stroke:#08427b,color:#fff
+  classDef external fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  class H person
+  class S system
+  class B,L,M,E external

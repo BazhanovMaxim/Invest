@@ -1,0 +1,153 @@
+erDiagram
+    instrument ||--o{ price_point : has_prices
+    dataset_version ||--o{ price_point : contains
+    dataset_version ||--o{ scenario_version : supplies_prices
+    market_event ||--o{ scenario_event : provides_context
+    scenario_version ||--o{ scenario_event : records_sources
+    scenario_version ||--o{ simulation_run : starts
+    simulation_run ||--o{ portfolio_position : holds
+    instrument ||--o{ portfolio_position : identifies
+    simulation_run ||--o{ sim_order : accepts
+    instrument ||--o{ sim_order : identifies
+    sim_order ||--o| sim_fill : executes_once
+    price_point ||--o{ sim_fill : sets_execution_price
+    simulation_run ||--o{ run_event : appends
+    simulation_run ||--o| run_metrics : produces
+    simulation_run ||--o| ai_review : explains_after_finish
+    simulation_run o|--o{ product_event : optionally_attributes
+
+    instrument {
+        uuid id PK
+        text external_uid UK
+        text ticker
+        text currency
+    }
+
+    market_event {
+        uuid id PK
+        text source_url
+        timestamptz occurred_at
+        timestamptz published_at
+        timestamptz available_at
+        text title
+        text body
+        text[] asset_codes
+        text content_hash UK
+    }
+
+    dataset_version {
+        uuid id PK
+        text data_kind
+        text content_hash UK
+        jsonb source_manifest
+        jsonb instrument_snapshot
+        timestamptz created_at
+    }
+
+    price_point {
+        uuid dataset_version_id PK, FK
+        bigint step_no PK
+        uuid instrument_id PK, FK
+        timestamptz market_time
+        numeric price
+    }
+
+    scenario_version {
+        uuid id PK
+        uuid dataset_version_id FK
+        text execution_rules_version
+        text content_hash UK
+        jsonb definition
+        timestamptz created_at
+    }
+
+    scenario_event {
+        uuid scenario_version_id PK, FK
+        uuid market_event_id PK, FK
+        bigint reveal_step
+    }
+
+    simulation_run {
+        uuid id PK
+        uuid scenario_version_id FK
+        uuid owner_id
+        text controller_mode
+        text state
+        bigint current_step
+        bigint state_version
+        numeric cash_balance
+        text engine_version
+        jsonb initial_portfolio_snapshot
+        jsonb settings_snapshot
+    }
+
+    portfolio_position {
+        uuid run_id PK, FK
+        uuid instrument_id PK, FK
+        bigint quantity_lots
+        numeric average_cost
+        numeric realized_pnl
+    }
+
+    sim_order {
+        uuid id PK
+        uuid run_id FK
+        uuid instrument_id FK
+        text side
+        text order_type
+        bigint quantity_lots
+        numeric stop_price
+        bigint accepted_step
+        text state
+    }
+
+    sim_fill {
+        uuid id PK
+        uuid order_id FK, UK
+        uuid dataset_version_id FK
+        bigint step_no FK
+        uuid instrument_id FK
+        bigint quantity_lots
+        numeric price
+        numeric commission
+    }
+
+    run_event {
+        uuid run_id PK, FK
+        bigint seq_no PK
+        bigint step_no
+        text event_type
+        uuid command_id
+        text request_hash
+        jsonb payload
+    }
+
+    run_metrics {
+        uuid run_id PK, FK
+        text calculation_version
+        numeric final_equity
+        numeric net_pnl
+        numeric fees_total
+        numeric max_drawdown_pct
+        boolean goal_reached
+    }
+
+    ai_review {
+        uuid run_id PK, FK
+        text status
+        text input_hash
+        text model_id
+        text prompt_version
+        jsonb result
+        text failure_code
+    }
+
+    product_event {
+        uuid id PK
+        uuid owner_id
+        uuid run_id FK
+        text event_type
+        text source
+        timestamptz occurred_at
+        jsonb payload
+    }

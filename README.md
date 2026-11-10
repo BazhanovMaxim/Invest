@@ -1,41 +1,40 @@
-# Invest: песочница инвестиционных стратегий
+# Invest: архитектура песочницы стратегий
 
-Материалы команды для соревнования [Т-Инвестиции Premarket](https://meetup.tbank-online.com/invest.premarket).
+Проект архитектуры MVP для Т-Инвестиции Premarket, задача 11. Здесь находятся диаграммы и технические решения для обсуждения разработки. Приложение пока не реализовано.
 
-Пользователь собирает виртуальный портфель и проверяет свою стратегию в разных условиях рынка. С песочницей может работать и человек, и торговый робот через общий API. После симуляции AI разбирает результат и помогает понять, что стоит изменить и проверить ещё раз.
+Человек или торговый робот собирает виртуальный портфель и проверяет стратегию на выбранном сценарии рынка. Наш AI-агент готовит сценарий до запуска и разбирает результат после завершения. Во время симуляции решения принимает участник, а деньги и исполнение заявок считает движок.
 
-В репозитории опубликованы схема бизнес-процесса и проект архитектуры MVP. Код приложения будет добавлен по мере разработки.
+## Диаграммы
 
-## Основные материалы
+| Уровень | Что показывает | Диаграмма | Исходник |
+| --- | --- | --- | --- |
+| C4 Context | Граница продукта и внешние участники | [SVG](docs/architecture/rendered/01-context.svg) | [Mermaid](docs/architecture/diagrams/01-context.mmd) |
+| C4 Container | Приложения, база данных и протоколы | [SVG](docs/architecture/rendered/02-containers.svg) | [Mermaid](docs/architecture/diagrams/02-containers.mmd) |
+| Backend components | Модули одного backend и их зависимости | [SVG](docs/architecture/rendered/03-backend-components.svg) | [Mermaid](docs/architecture/diagrams/03-backend-components.mmd) |
+| Sequence: подготовка | Цикл LLM, вызовы инструментов и RAG | [SVG](docs/architecture/rendered/04-prepare-scenario.svg) | [Mermaid](docs/architecture/diagrams/04-prepare-scenario.mmd) |
+| Sequence: симуляция | Команды, виртуальное время и транзакция | [SVG](docs/architecture/rendered/05-run-simulation.svg) | [Mermaid](docs/architecture/diagrams/05-run-simulation.mmd) |
+| Sequence: разбор | Готовые метрики, журнал и AI-объяснение | [SVG](docs/architecture/rendered/06-review-results.svg) | [Mermaid](docs/architecture/diagrams/06-review-results.mmd) |
+| ERD | Сущности PostgreSQL и связи | [SVG](docs/architecture/rendered/07-data-model.svg) | [Mermaid](docs/architecture/diagrams/07-data-model.mmd) |
 
-- [Архитектура MVP](docs/architecture/sandbox-architecture.png).
-- [Порядок работы симуляции и автоматические метрики](docs/architecture/sandbox-lifecycle.png).
-- [Редактируемая схема в FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK).
+![Контейнеры системы](docs/architecture/rendered/02-containers.svg)
 
-Команда также подготовила две рабочие таблицы отдельно от репозитория. В первой собраны темы и аналоги, включая лист «03 Песочница стратегий». Во второй — решения других соревнований и варианты применения MCP.
+## Технические решения
 
-## Проверка стратегии на исторических данных
+- [Границы модулей, агентные инструменты и правила симуляции](docs/architecture/architecture.md).
+- [Контракты API и данных](docs/architecture/contracts.md).
+- [Модель данных и ограничения](docs/architecture/data-model.md).
+- [Как изменять и проверять диаграммы](docs/architecture/README.md).
 
-![Бизнес-процесс проверки инвестиционной стратегии в песочнице](docs/diagrams/business-case.svg)
+Стек: Kotlin, Spring Boot, Angular, TypeScript, PostgreSQL, OpenAPI, T-Invest MCP и LLM API. Backend остаётся одним приложением. Для RAG в MVP используем фильтры и полнотекстовый поиск PostgreSQL; отдельная векторная база не требуется выбранному варианту.
 
-Пользователь выбирает готовый кейс или описывает ситуацию ИИ-помощнику. Песочница поэтапно раскрывает котировки и новости выбранного периода. Торгует сам пользователь или внешний робот через T-Invest MCP. В конце пользователь получает журнал сделок и разбор результата.
+## Бизнес-сценарий
 
-[Исходник схемы в PlantUML](docs/diagrams/business-case.puml) · [Открыть схему в SVG](docs/diagrams/business-case.svg)
+Сохранена ранее добавленная командой схема проверки стратегии на исторических данных: [PlantUML](docs/diagrams/business-case.puml), [SVG](docs/diagrams/business-case.svg).
 
-## Архитектура MVP
+Пользователь выбирает кейс или описывает ситуацию помощнику. Система поэтапно раскрывает данные, человек или робот принимает решения, затем получает журнал и разбор. Техническая граница MVP: T-Invest MCP поставляет рыночные данные; команды в наш симулятор идут через общий API. Подключение существующего робота без изменения его MCP-инструментов потребует отдельного адаптера. Бизнес-схема сохранена как исходная постановка.
 
-Стек: Kotlin, Spring Boot, Angular, TypeScript, PostgreSQL, OpenAPI, T-Invest MCP и LLM API.
+## Концептуальные схемы
 
-Один backend содержит общий API, AI-Agent, RAG по рыночным событиям, движок симуляции, загрузку данных и расчёт метрик. RAG ищет события и связанную историю в PostgreSQL. AI-Agent и LLM готовят учебный сценарий до старта и разбирают результат после завершения. Во время прогона человек или робот действует самостоятельно.
-
-Движок считает виртуальные деньги, заявки, стопы, комиссии и просадку. Исторические данные и искусственные учебные цены хранятся отдельно. Для повторных проверок фиксируем сценарий и версию данных.
-
-Обе схемы собраны в [разделе архитектуры](docs/architecture/) и доступны на [доске FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK). Нажмите на изображение, чтобы открыть его в полном размере.
-
-### Компоненты и интеграции
-
-[![Архитектура MVP инвестиционной песочницы](docs/architecture/sandbox-architecture.png)](docs/architecture/sandbox-architecture.png)
-
-### Этапы симуляции и метрики
-
-[![Подготовка сценария, торговля и разбор результатов](docs/architecture/sandbox-lifecycle.png)](docs/architecture/sandbox-lifecycle.png)
+- [Первоначальная схема компонентов из FigJam](docs/architecture/sandbox-architecture.png).
+- [Первоначальная схема этапов и метрик](docs/architecture/sandbox-lifecycle.png).
+- [Редактируемая доска FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK).

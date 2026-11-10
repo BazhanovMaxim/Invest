@@ -1,0 +1,29 @@
+sequenceDiagram
+  autonumber
+  actor U as Пользователь
+  participant API as HTTP API
+  participant A as AI-Agent
+  participant L as LLM API
+  participant R as RAG / Data tools
+  participant S as Scenario Service
+  participant D as PostgreSQL
+  U->>API: Цель, портфель, опыт и доступные действия
+  API->>A: prepareScenario(request)
+  A->>L: Цель + описания разрешённых инструментов
+  loop Ограниченное число вызовов инструментов
+    L-->>A: tool_call: search_events / load_history
+    A->>R: Проверенные аргументы вызова
+    R->>D: Поиск событий и версий исторических данных
+    D-->>R: События, цены, source URL и даты
+    R-->>A: Результат поиска
+    A->>L: tool_result с источниками
+  end
+  L-->>A: ScenarioSpec: учебные события и параметры ценового пути
+  A->>S: save_scenario(ScenarioSpec)
+  S->>S: Проверить структуру, ссылки и диапазоны параметров
+  S->>D: Сохранить ценовой путь, правила, версии и хеш
+  D-->>S: Неизменяемая ScenarioVersion
+  S-->>A: scenarioVersionId
+  A-->>API: Описание сценария + scenarioVersionId
+  API-->>U: Условия и цель без будущих цен и скрытых шагов
+  Note over A,D: Учебная траектория является допущением, не прогнозом.<br/>LLM не требуется для повторного воспроизведения сохранённой версии.
