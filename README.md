@@ -8,8 +8,8 @@
 
 ## Основные материалы
 
-- [Архитектура для задачи 11](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-architecture.png).
-- [Порядок работы симуляции и автоматические метрики](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-lifecycle.png).
+- [Архитектура MVP](docs/architecture/sandbox-architecture.png).
+- [Порядок работы симуляции и автоматические метрики](docs/architecture/sandbox-lifecycle.png).
 - [Редактируемая схема в FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK).
 
 Команда также подготовила две рабочие таблицы отдельно от репозитория. В первой собраны темы и аналоги, включая лист «03 Песочница стратегий». Во второй — решения других соревнований и варианты применения MCP.
@@ -30,12 +30,12 @@
 
 Движок считает виртуальные деньги, заявки, стопы, комиссии и просадку. Исторические данные и искусственные учебные цены хранятся отдельно. Для повторных проверок фиксируем сценарий и версию данных.
 
-Обе схемы выгружены из [доски FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK). Нажмите на изображение, чтобы открыть его в полном размере.
+Обе схемы собраны в [разделе архитектуры](docs/architecture/) и доступны на [доске FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK). Нажмите на изображение, чтобы открыть его в полном размере.
 
 ### Компоненты и интеграции
 
-[![Архитектура MVP инвестиционной песочницы](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-architecture.png)](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-architecture.png)
+[![Архитектура MVP инвестиционной песочницы](docs/architecture/sandbox-architecture.png)](docs/architecture/sandbox-architecture.png)
 
 ### Этапы симуляции и метрики
 
-[![Подготовка сценария, торговля и разбор результатов](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-lifecycle.png)](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-lifecycle.png)
+[![Подготовка сценария, торговля и разбор результатов](docs/architecture/sandbox-lifecycle.png)](docs/architecture/sandbox-lifecycle.png)
