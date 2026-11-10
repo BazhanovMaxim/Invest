@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 960" width="1560" height="960" role="img" aria-labelledby="title desc">
+  <title id="title">Архитектура инвестиционной песочницы</title>
+  <desc id="desc">Данные Т-Инвестиций и опубликованные события служат источником истории. Пользователь выбирает готовый кейс или запрашивает личную тренировку. ИИ составляет учебный портфель для тренировки и даёт советы. Движок принимает заявки человека или робота, исполняет их на истории и записывает результат. Рейтинг действует в пределах одной версии конкурсного кейса.</desc>
+  <defs>
+    <marker id="end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 8 5 1 9" fill="none" stroke="#526b80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#203344}
+      .title{font-size:37px;font-weight:700;fill:#14283a}
+      .sub{font-size:21px;fill:#455e70}
+      .group{font-size:14px;letter-spacing:1.3px;font-weight:700;fill:#435c6e}
+      .head{font-size:22px;font-weight:700;fill:#162f43}
+      .body{font-size:18px;fill:#253e4f}
+      .wire{fill:none;stroke:#526b80;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#end)}
+      .blue{fill:#e2f1ff;stroke:#7eafd2}.green{fill:#e6f5ec;stroke:#72a987}.violet{fill:#eee8fc;stroke:#ab95d2}.white{fill:#fff;stroke:#9dabb7}.gold{fill:#fff4d9;stroke:#c7af70}
+      rect.box{stroke-width:1.6}
+    </style>
+  </defs>
+  <rect width="1560" height="960" fill="#f6f8fa"/>
+  <rect x="18" y="18" width="1524" height="924" rx="16" fill="#fff" stroke="#d6dfe5"/>
+  <text x="52" y="80" class="title">Архитектура инвестиционной песочницы</text>
+  <text x="52" y="119" class="sub">Проверка стратегии на исторических данных в личной тренировке или в конкурсном кейсе.</text>
+  <path d="M52 148H1508" stroke="#dce4e9"/>
+  <rect x="405" y="172" width="728" height="724" rx="16" fill="#f5faff" stroke="#bdd5e5"/>
+  <text x="50" y="204" class="group">УЧАСТНИКИ</text>
+  <text x="430" y="204" class="group">BACKEND ПЕСОЧНИЦЫ</text>
+  <text x="1211" y="204" class="group">ИСТОРИЧЕСКИЕ ДАННЫЕ</text>
+  <g class="wire">
+    <path d="M339 299 H428"/>
+    <path d="M339 473 H367 V318 H428"/>
+    <path d="M600 335 V362"/>
+    <path d="M765 420 H798"/>
+    <path d="M600 474 V520"/>
+    <path d="M960 474 V520"/>
+    <path d="M1360 346 V367 H1523 V546 H1470 V564"/>
+    <path d="M1360 522 V564"/>
+    <path d="M1208 632 H1165 V493 H720 V475"/>
+    <path d="M1208 663 H1146 V613 H1108"/>
+    <path d="M600 666 V711"/>
+    <path d="M765 787 H798"/>
+  </g>
+  <g>
+    <rect class="box blue" x="50" y="237" width="289" height="124" rx="12"/>
+    <text x="69" y="270" class="head">Пользователь</text>
+    <text x="69" y="303" class="body">Выбирает режим и кейс,</text>
+    <text x="69" y="328" class="body">торгует в приложении.</text>
+    <rect class="box blue" x="50" y="415" width="289" height="116" rx="12"/>
+    <text x="69" y="449" class="head">Внешний робот</text>
+    <text x="69" y="480" class="body">Подаёт заявки в сессию</text>
+    <text x="69" y="506" class="body">через T-Invest MCP.</text>
+  </g>
+  <g>
+    <rect class="box blue" x="430" y="229" width="678" height="106" rx="12"/>
+    <text x="452" y="265" class="head">API учебной сессии</text>
+    <text x="452" y="297" class="body">Принимает выбранный кейс или описание тренировки,</text>
+    <text x="452" y="321" class="body">передаёт заявки и открытые на текущем шаге данные.</text>
+    <rect class="box violet" x="430" y="364" width="335" height="110" rx="12"/>
+    <text x="449" y="397" class="head">Каталог и поиск (RAG)</text>
+    <text x="449" y="427" class="body">Кейсы по уровню сложности.</text>
+    <text x="449" y="451" class="body">Поиск эпизода по описанию.</text>
+    <rect class="box violet" x="800" y="364" width="308" height="110" rx="12"/>
+    <text x="819" y="397" class="head">ИИ-помощник (LLM)</text>
+    <text x="819" y="427" class="body">Портфель для тренировки,</text>
+    <text x="819" y="451" class="body">советы по открытым данным.</text>
+    <rect class="box green" x="430" y="522" width="678" height="144" rx="12"/>
+    <text x="452" y="558" class="head">Движок исторической симуляции</text>
+    <text x="452" y="590" class="body">Воспроизводит котировки и публикации по времени.</text>
+    <text x="452" y="616" class="body">Исполняет виртуальные заявки по правилам кейса,</text>
+    <text x="452" y="642" class="body">учитывает комиссии и изменения портфеля.</text>
+    <rect class="box green" x="430" y="713" width="335" height="151" rx="12"/>
+    <text x="449" y="748" class="head">Журнал и результаты</text>
+    <text x="449" y="779" class="body">Сделки, доходность и просадка.</text>
+    <text x="449" y="804" class="body">ИИ даёт советы по действиям</text>
+    <text x="449" y="829" class="body">и рассчитанным показателям.</text>
+    <rect class="box gold" x="800" y="713" width="308" height="151" rx="12"/>
+    <text x="819" y="748" class="head">Таблица результатов</text>
+    <text x="819" y="779" class="body">В конкурсном режиме движок</text>
+    <text x="819" y="804" class="body">ранжирует попытки по правилу</text>
+    <text x="819" y="829" class="body">этой версии кейса.</text>
+  </g>
+  <g>
+    <rect class="box white" x="1210" y="229" width="298" height="117" rx="12"/>
+    <text x="1230" y="265" class="head">T-Invest API</text>
+    <text x="1230" y="297" class="body">Исторические котировки</text>
+    <text x="1230" y="322" class="body">и параметры инструментов.</text>
+    <rect class="box white" x="1210" y="391" width="298" height="131" rx="12"/>
+    <text x="1230" y="428" class="head">Публикации</text>
+    <text x="1230" y="459" class="body">Новости и сообщения</text>
+    <text x="1230" y="484" class="body">компаний с источником</text>
+    <text x="1230" y="509" class="body">и временем выхода.</text>
+    <rect class="box white" x="1210" y="566" width="298" height="161" rx="12"/>
+    <text x="1230" y="602" class="head">PostgreSQL</text>
+    <text x="1230" y="634" class="body">События, инструменты, цены.</text>
+    <text x="1230" y="660" class="body">Для каждой сессии отдельно</text>
+    <text x="1230" y="685" class="body">хранятся портфель, заявки</text>
+    <text x="1230" y="710" class="body">и результаты.</text>
+  </g>
+</svg>

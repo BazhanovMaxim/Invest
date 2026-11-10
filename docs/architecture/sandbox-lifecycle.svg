@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="922" viewBox="0 0 1680 922" role="img" aria-labelledby="title description" xml:lang="ru">
+  <title id="title">Этапы симуляции и результаты</title>
+  <desc id="description">Три этапа учебной торговли в песочнице Т-Инвестиций и правила соревнования внутри готового кейса.</desc>
+  <style>
+    text { font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #202A32; }
+    .title { font-size: 52px; font-weight: 700; letter-spacing: -1.3px; }
+    .subtitle { font-size: 25px; fill: #4D5965; }
+    .stage { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+    .topic { font-size: 25px; font-weight: 700; }
+    .body { font-size: 22px; }
+    .rule { font-size: 31px; font-weight: 700; letter-spacing: -0.4px; }
+    .detail { font-size: 24px; }
+  </style>
+  <rect width="1680" height="922" fill="#E6E6E6"/>
+  <rect x="17" y="17" width="1646" height="888" rx="12" fill="#FAFAFA" stroke="#CCC4C4" stroke-width="1.6"/>
+    <text x="64" y="94" class="title">Этапы симуляции и результаты</text>
+    <text x="66" y="140" class="subtitle">В песочнице Т-Инвестиций человек или робот торгует на данных реального исторического периода.</text>
+  <g id="stage-1">
+    <rect x="64" y="188" width="500" height="498" rx="43" fill="#E1D4FF" stroke="#9974E8" stroke-width="1.8"/>
+    <text x="95" y="249" class="stage" style="fill:#31244C">До старта</text>
+    <path d="M95 275h438" fill="none" stroke="#9974E8" stroke-width="1.5"/>
+    <text x="95" y="327" class="topic">Готовый кейс</text>
+    <text x="95" y="363" class="body">Выберите задачу из каталога</text>
+    <text x="95" y="394" class="body">по уровню сложности.</text>
+    <text x="95" y="435" class="topic">Свободная тренировка</text>
+    <text x="95" y="471" class="body">Выберите ситуацию или опишите её.</text>
+    <text x="95" y="502" class="body">ИИ составит учебный портфель</text>
+    <text x="95" y="533" class="body">для выбранных условий.</text>
+    <text x="95" y="576" class="topic">Совет в тренировке</text>
+    <text x="95" y="612" class="body">ИИ пояснит, какие риски портфеля</text>
+    <text x="95" y="643" class="body">учесть при выборе стратегии.</text>
+  </g>
+  <g id="stage-2">
+    <rect x="590" y="188" width="500" height="498" rx="43" fill="#D6F2DA" stroke="#76C589" stroke-width="1.8"/>
+    <text x="621" y="249" class="stage" style="fill:#234E30">Во время симуляции</text>
+    <path d="M621 275h438" fill="none" stroke="#76C589" stroke-width="1.5"/>
+    <text x="621" y="327" class="topic">Архив рынка</text>
+    <text x="621" y="363" class="body">Котировки, новости и события</text>
+    <text x="621" y="394" class="body">открываются в историческом порядке.</text>
+    <text x="621" y="435" class="topic">Ручная торговля или робот</text>
+    <text x="621" y="471" class="body">Торгуйте в приложении или</text>
+    <text x="621" y="502" class="body">подключите своего торгового робота</text>
+    <text x="621" y="533" class="body">через T-Invest MCP.</text>
+    <text x="621" y="576" class="topic">Подсказки по правилам кейса</text>
+    <text x="621" y="612" class="body">Совет ИИ опирается на сведения,</text>
+    <text x="621" y="643" class="body">доступные к моменту решения.</text>
+  </g>
+  <g id="stage-3">
+    <rect x="1116" y="188" width="500" height="498" rx="43" fill="#E1D4FF" stroke="#9974E8" stroke-width="1.8"/>
+    <text x="1147" y="249" class="stage" style="fill:#31244C">После симуляции</text>
+    <path d="M1147 275h438" fill="none" stroke="#9974E8" stroke-width="1.5"/>
+    <text x="1147" y="327" class="topic">Результат портфеля</text>
+    <text x="1147" y="363" class="body">Движок рассчитывает доходность</text>
+    <text x="1147" y="394" class="body">и максимальную просадку.</text>
+    <text x="1147" y="435" class="topic">Разбор решений</text>
+    <text x="1147" y="471" class="body">ИИ связывает решения с итогом</text>
+    <text x="1147" y="502" class="body">по журналу сделок, расчётам движка</text>
+    <text x="1147" y="533" class="body">и открытым фактам.</text>
+    <text x="1147" y="576" class="topic">Проверка стратегии</text>
+    <text x="1147" y="612" class="body">Измените одно правило и сравните</text>
+    <text x="1147" y="643" class="body">результаты повторного прогона.</text>
+  </g>
+  <g id="sequence" stroke="#737A7E" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M568 436h17l-5 -5m5 5l-5 5 M1094 436h17l-5 -5m5 5l-5 5"/>
+  </g>
+  <g id="contest">
+    <rect x="64" y="725" width="1552" height="147" rx="43" fill="#FFFFFF" stroke="#B4B7BB" stroke-width="1.7"/>
+    <text x="96" y="779" class="rule">Соревнование внутри готового кейса</text>
+    <text x="96" y="823" class="detail">Люди соревнуются на одинаковых условиях. У всех один стартовый портфель, один период и общие ограничения.</text>
+    <text x="96" y="855" class="detail">Метрика известна до старта. По ней движок рассчитывает место каждого участника.</text>
+  </g>
+</svg>
