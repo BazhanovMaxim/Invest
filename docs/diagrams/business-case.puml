@@ -1,0 +1,65 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam defaultFontColor #172B42
+skinparam ArrowColor #486278
+skinparam ArrowThickness 1.4
+skinparam TitleFontSize 23
+skinparam TitleFontColor #162A41
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #7591A5
+skinparam ActivityDiamondBackgroundColor #FFF2B3
+skinparam ActivityDiamondBorderColor #A38426
+skinparam ActivityStartColor #285D66
+skinparam ActivityEndColor #285D66
+skinparam SwimlaneTitleBackgroundColor #E3EDF2
+skinparam SwimlaneTitleFontSize 16
+skinparam SwimlaneTitleFontStyle bold
+skinparam SwimlaneBorderColor #BDCDD6
+skinparam NoteBackgroundColor #FFF8D9
+skinparam NoteBorderColor #CCB76A
+title Проверка стратегии на исторических данных
+
+|#F7FAFC|Пользователь|
+|#F4F9F7|ИИ-помощник|
+|#F7FAFC|Песочница Т-Инвестиций|
+|#F4F9F7|Внешний робот|
+|Пользователь|
+start
+if (Как задать ситуацию?) then (Готовый кейс)
+  :Выбрать ситуацию\nи начальный портфель;
+else (Своими словами)
+  :Описать ситуацию\nи желаемый портфель;
+  |ИИ-помощник|
+  :Подобрать исторический эпизод\nпо базе событий и новостей (RAG)\nи предложить учебный портфель;
+  |Пользователь|
+  :Подтвердить эпизод и портфель;
+endif
+:Выбрать ручную торговлю\nили подключить внешнего робота;
+
+|Песочница Т-Инвестиций|
+:Открыть учебную сессию\nна выбранном периоде;
+repeat
+  :Раскрыть котировки и публикации\nна текущий момент симуляции;
+  |ИИ-помощник|
+  :По запросу объяснить ситуацию\nпо уже раскрытым данным;
+  |Песочница Т-Инвестиций|
+  if (Кто торгует в этой сессии?) then (Человек)
+    |Пользователь|
+    :Подать заявку в приложении\nили пропустить шаг;
+  else (Робот)
+    |Внешний робот|
+    :Подать заявку через T-Invest MCP\nили пропустить шаг;
+  endif
+  |Песочница Т-Инвестиций|
+  :Обработать заявки по правилам симуляции,\nзаписать сделки и обновить портфель;
+repeat while (Есть следующий шаг?) is (Да) not (Нет)
+:Рассчитать доходность и просадку\nпо журналу сделок и стоимости портфеля;
+|ИИ-помощник|
+:Объяснить результат по сделкам\nи событиям этого периода;
+|Пользователь|
+:Изучить отчёт и решить, повторять ли\nпроверку с изменённой стратегией;
+stop
+@enduml

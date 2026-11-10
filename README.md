@@ -14,6 +14,14 @@
 - [Порядок работы симуляции и автоматические метрики](outputs/01a18d85-14f7-7dd0-874f-31feb3721cf0/architecture/sandbox-lifecycle.png).
 - [Редактируемая схема в FigJam](https://www.figma.com/board/udNCfmxlbHqwijvXoh01XK).
 
+## Проверка стратегии на исторических данных
+
+![Бизнес-процесс проверки инвестиционной стратегии в песочнице](docs/diagrams/business-case.svg)
+
+Пользователь выбирает готовый кейс или описывает ситуацию ИИ-помощнику. Песочница поэтапно раскрывает котировки и новости выбранного периода. Торгует сам пользователь или внешний робот через T-Invest MCP. В конце пользователь получает журнал сделок и разбор результата.
+
+[Исходник схемы в PlantUML](docs/diagrams/business-case.puml) · [Открыть схему в SVG](docs/diagrams/business-case.svg)
+
 ## Архитектура MVP
 
 Стек: Kotlin, Spring Boot, Angular, TypeScript, PostgreSQL, OpenAPI, T-Invest MCP и LLM API.
